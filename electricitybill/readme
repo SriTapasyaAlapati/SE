@@ -1,0 +1,28 @@
+Electricity Billing System
+A web-based billing system built with HTML, CSS, PHP, and MySQL that manages electricity billing for three user roles.
+
+Key Files
+main.html – Homepage with role selection
+
+admin.html – Admin dashboard
+
+employee.html – Employee interface
+
+customer_login.php – Customer login
+
+ele1.php – Add new customer (Admin)
+
+bill.php – Generate bill (Employee)
+
+pay.php – Payment page (Customer)
+
+style.css – Styling for all pages
+
+user.sql – Database schema and sample data
+
+User Roles:
+Admin – Add customers
+
+Employee – Enter meter readings & generate bills
+
+Customer – View and pay bills
