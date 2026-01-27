@@ -1,0 +1,66 @@
+TEST PLAN - ELECTRICITY BILLING SYSTEM
+
+1.
+Functionality: Admin Login
+Input: User: Admin, Pass: Admin123$
+Expected Output: Redirect to Registration (ele1.php)
+Actual Output: Redirected successfully
+Result: PASS
+
+2.
+Functionality: Admin Login
+Input: User: Wrong, Pass: Wrong
+Expected Output: Error: "Invalid username or password"
+Actual Output: Error displayed
+Result: PASS
+
+3.
+Functionality: Register Customer
+Input: Valid Data (Unique SCNO)
+Expected Output: "Customer registration successful!"
+Actual Output: Success message shown
+Result: PASS
+
+4.
+Functionality: Register Customer
+Input: Duplicate SCNO
+Expected Output: Error: "SC No already exists..."
+Actual Output: DB Error caught/shown
+Result: PASS
+
+5.
+Functionality: Generate Bill
+Input: Valid SCNO, Present > Previous
+Expected Output: "Bill added successfully!"
+Actual Output: Bill generated
+Result: PASS
+
+6.
+Functionality: Generate Bill
+Input: Duplicate Bill (Same Month)
+Expected Output: Error: "A bill already exists for SCNO for this Month"
+Actual Output: Error displayed
+Result: PASS
+
+7.
+Functionality: Customer Login
+Input: Valid SCNO, Pass: password
+Expected Output: Redirect to Dashboard
+Actual Output: Redirected
+Result: PASS
+
+
+
+8.
+Functionality: Dashboard
+Input: Load Dashboard (Logged In)
+Expected Output: Display Bill Details & Name
+Actual Output: Details Displayed
+Result: PASS
+
+9.
+Functionality: Payment
+Input: Click 'Pay Now'
+Expected Output: Status Update to 'Paid'
+Actual Output: Status Updated
+Result: PASS

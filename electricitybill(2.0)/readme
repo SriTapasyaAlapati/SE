@@ -1,0 +1,120 @@
+# Electricity Billing System
+
+A web-based billing system for calculating electricity charges and managing payments.
+
+## Languages Used
+- Frontend: HTML, CSS
+- Backend: PHP
+- Database: MySQL
+
+## Database Configuration
+- Host: localhost
+- User: root
+- Password:empty
+- Database Name:user
+
+## Key Files
+- `main.html`: Homepage
+- `admin.html`: Admin Login & Dashboard
+- `ele1.php`: Add Customer (Admin)
+- `bill.php`: Generate Bill (Admin/Employee)
+- `customer_login.php`: Customer Login
+- `customer_dashboard.php`: Customer Dashboard
+- `pay.php`: Payment Processing
+- `style.css`: Main Stylesheet
+- `db_connect.php`: Database Connection
+- `user.sql`: Database Schema
+
+## User Roles
+- Admin/Employee: Add customers, Generate bills
+- Customer: View consumption, Pay bills
+
+## Module Specifications
+
+Module Name: Admin Login
+Input: Username, Password
+Preconditions: None
+Logic:
+1. Start Session
+2. Receive Username and Password
+3. IF Username equals 'Admin' AND Password equals 'Admin123$' THEN
+      Set admin_logged_in = true
+      Redirect to ele1.php
+   ELSE
+      Show 'Invalid username or password'
+   END IF
+Output: Dashboard Access or Error Message
+
+Module Name: Customer Registration
+Input: SCNO, Name, USCNO, Address, Area, Phone Number, Group
+Preconditions: Admin must be logged in
+Logic:
+1. Generate unique SCNO and USCNO (9 digits)
+2. Validate Name (no numbers) and Phone (10 digits)
+3. Connect to Database
+4. Insert details into 'user' table
+5. IF Duplicate SCNO THEN
+      Show 'SC No already exists'
+   ELSE IF Insert Success THEN
+      Show 'Registration successful'
+   ELSE
+      Show Error
+   END IF
+Output: New Customer Record or Error Message
+
+Module Name: Generate Bill
+Input: SCNO, Present Meter Reading
+Preconditions: Admin logged in, User exists
+Logic:
+1. Fetch User details by SCNO
+2. Check if bill already generated for current month
+3. Fetch Previous Reading from last bill
+4. Calculate Units = Present Reading - Previous Reading
+5. Calculate Energy Charges based on Group (D/C/I) slabs
+   Example (Group D):
+   - 0-50 units: 1.5 per unit
+   - 51-100 units: 2.5 per unit
+6. Check for unpaid previous bills
+7. IF Unpaid Bills > 0 THEN
+      Add Late Fine (150)
+   END IF
+8. Total Amount = Current Bill + Previous Dues + Fine
+9. Insert into 'bill' table
+Output: Bill Generated or Error Message
+
+Module Name: Customer Login
+Input: SCNO, Password
+Preconditions: None
+Logic:
+1. Fetch list of users from DB
+2. Validate Password (must be 'password')
+3. Check if selected SCNO exists in user list
+4. IF Valid THEN
+      Set customer_logged_in = true
+      Redirect to Dashboard
+   ELSE
+      Show Error
+   END IF
+Output: Dashboard Access or Error Message
+
+Module Name: Payment
+Input: Payment Request (Click)
+Preconditions: Customer logged in, Unpaid bill exists
+Logic:
+1. Identify latest Unpaid bill for logged-in SCNO
+2. Update 'bill' table: Set status = 'Paid', payment_date = NOW()
+3. Calculate Total Paid (Due Payment + Late Fine)
+4. Store payment details in session
+5. Redirect to Dashboard with Success message
+Output: Bill Status Update to 'Paid'
+
+Module Name: Database Connection
+Input: Server Credentials (in code)
+Preconditions: MySQL Server running
+Logic:
+1. Define Server, Username, Password, DB Name
+2. Create New MySQLi Object
+3. IF Connection Error THEN
+      Stop Execution and Show Error
+   END IF
+Output: Database Connection Object
